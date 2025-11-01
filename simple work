@@ -89,19 +89,3 @@ local function __always_allow(...)
     -- return true for success; expand returns if original code expects more values
     return true
 end
-
--- Common global names used by key systems (override to always allow)
-_G.checkKey      = __always_allow
-_G.verifyKey     = __always_allow
-_G.KeySystem     = __always_allow
-_G.KeyAuth       = __always_allow
-_G.ValidateKey   = __always_allow
-_G.isKeyValid    = __always_allow
-
--- Provide fake modules if script does require("key") / require("auth") etc.
-package = package or {}
-package.preload = package.preload or {}
-package.preload["key"] = function() return { check = __always_allow, verify = __always_allow } end
-package.preload["auth"] = function() return { check = __always_allow, verify = __always_allow } end
-package.preload["license"] = function() return { check = __always_allow, verify = __always_allow } end
--- ===== END KEY-FREE STUBS =====
